@@ -14,7 +14,7 @@ namespace Kiselev_Andrey
                 if (!byte.TryParse(Console.ReadLine(), out byte num))
                 {
                     Console.WriteLine("Неправильный ввод");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     continue;
                 }
                 return num;
@@ -29,7 +29,7 @@ namespace Kiselev_Andrey
                 if (!int.TryParse(Console.ReadLine(), out int num))
                 {
                     Console.WriteLine("Неправильный ввод! Нужно целое число");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     continue;
                 }
                 return num;
@@ -75,6 +75,20 @@ namespace Kiselev_Andrey
                 text = text.Insert(text.Length, " ");
             }
             Console.Write(text);
+        }
+    }
+
+    public static class StartMenu
+    {
+        public static byte Choise(params string[] texts) {
+
+            Console.WriteLine($"\n\t{texts[0]}");
+            for (int i = 1; i < texts.Length; i++)
+            {
+                Console.WriteLine($"{i}. {texts[i]}");
+            }
+            Console.WriteLine("\n0. Выход");
+            return ConsoleRead.Byte("\nВыберите упражнение: ");
         }
     }
 }

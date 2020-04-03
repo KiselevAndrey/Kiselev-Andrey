@@ -6,7 +6,7 @@ namespace Kiselev_Andrey
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            return;
         }
     }
 }
