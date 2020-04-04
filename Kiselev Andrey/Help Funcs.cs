@@ -35,6 +35,12 @@ namespace Kiselev_Andrey
                 return num;
             }
         }
+
+        public static string String(string text)
+        {
+            Console.Write(text);
+            return Console.ReadLine();
+        }
     }
 
     public static class Matrix
@@ -80,12 +86,12 @@ namespace Kiselev_Andrey
 
     public static class StartMenu
     {
-        public static byte Choise(params string[] texts) {
+        public static byte Choise(string start_text, params string[] texts) {
 
-            Console.WriteLine($"\n\t{texts[0]}");
-            for (int i = 1; i < texts.Length; i++)
+            Console.WriteLine($"\n\t{start_text}");
+            for (int i = 0; i < texts.Length; i++)
             {
-                Console.WriteLine($"{i}. {texts[i]}");
+                Console.WriteLine($"{i + 1}. {texts[i]}");
             }
             Console.WriteLine("\n0. Выход");
             return ConsoleRead.Byte("\nВыберите упражнение: ");
