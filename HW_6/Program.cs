@@ -17,8 +17,6 @@ namespace HW_6
                     break;
                 }
 
-                Console.Clear();
-
                 switch (key)
                 {
                     case 1:
@@ -103,9 +101,7 @@ namespace HW_6
                         break;
                 }
 
-                Console.WriteLine("\n\nНажмите Enter.");
-                Console.ReadLine();
-                Console.Clear();
+                StartMenu.EnterClearConsole();
             }
         }
 

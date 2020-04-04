@@ -88,13 +88,24 @@ namespace Kiselev_Andrey
     {
         public static byte Choise(string start_text, params string[] texts) {
 
-            Console.WriteLine($"\n\t{start_text}");
+            Console.WriteLine($"\n\t{start_text}\n");
             for (int i = 0; i < texts.Length; i++)
             {
                 Console.WriteLine($"{i + 1}. {texts[i]}");
             }
-            Console.WriteLine("\n0. Выход");
-            return ConsoleRead.Byte("\nВыберите упражнение: ");
+            Console.WriteLine("\n0. Exit");
+            byte result = ConsoleRead.Byte("\nYour choise: ");
+
+            Console.Clear();
+
+            return result;
+        }
+        
+        public static void EnterClearConsole()
+        {
+            Console.WriteLine("\n\nPress Enter.");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
