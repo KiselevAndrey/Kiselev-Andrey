@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW_6", "HW_6\HW_6.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Priority_Queue", "Priority_Queue\Priority_Queue.csproj", "{E759C501-BB42-40C0-982A-6A925EB18D1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCD", "GCD\GCD.csproj", "{C390575B-C991-44E7-B833-BBE85D4F8CBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E759C501-BB42-40C0-982A-6A925EB18D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E759C501-BB42-40C0-982A-6A925EB18D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E759C501-BB42-40C0-982A-6A925EB18D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C390575B-C991-44E7-B833-BBE85D4F8CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C390575B-C991-44E7-B833-BBE85D4F8CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C390575B-C991-44E7-B833-BBE85D4F8CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C390575B-C991-44E7-B833-BBE85D4F8CBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
