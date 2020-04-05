@@ -9,12 +9,12 @@ namespace GCD
         {
             while (true)
             {
-                byte choise = StartMenu.Choise("Greatest Common Divisor", "Euclidean algorithm", "Binary GCD algorithm");
-                if (choise == 0) break;
+                byte choiсe = StartMenu.Choiсe("Greatest Common Divisor", "Euclidean algorithm", "Binary GCD algorithm");
+                if (choiсe == 0) break;
 
                 Console.Clear();
                 
-                switch (choise)
+                switch (choiсe)
                 {
                     case 1:
                         EuclideanAlgorithm();

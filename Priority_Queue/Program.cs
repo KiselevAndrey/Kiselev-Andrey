@@ -20,10 +20,10 @@ namespace Priority_Queue
 
             while (true)
             {
-                byte choise = StartMenu.Choise("Priotity Queue", "Take ticket", "Next patient");
-                if (choise == 0) break;
+                byte choiсe = StartMenu.Choiсe("Priotity Queue", "Take ticket", "Next patient");
+                if (choiсe == 0) break;
 
-                switch (choise)
+                switch (choiсe)
                 {
                     case 1:
                         AddPatient(ref patients, ref prior_patients);
@@ -44,7 +44,7 @@ namespace Priority_Queue
 
         static void AddPatient(ref Queue<string> queue, ref Queue<string> prior_queue)
         {
-            byte choise = StartMenu.Choise("Take ticket", "Doctor survey", "Hight temperure");
+            byte choise = StartMenu.Choiсe("Take ticket", "Doctor survey", "Hight temperure");
             if (choise == 0) return;
 
             switch (choise)

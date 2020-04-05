@@ -10,7 +10,7 @@ namespace HW_6
         {
             while (true)
             {
-                byte key = StartMenu.Choise("Домашняя работа 6", "Студенты и стек", "Студенты и очередь");
+                byte key = StartMenu.Choiсe("Домашняя работа 6", "Студенты и стек", "Студенты и очередь");
 
                 if (key == 0)
                 {
@@ -80,7 +80,7 @@ namespace HW_6
 
             while (true)
             {
-                var key = StartMenu.Choise("Студенты и очередь", "Task recieved", "Got coffee");
+                var key = StartMenu.Choiсe("Студенты и очередь", "Task recieved", "Got coffee");
                 if (key == 0)
                 {
                     break;

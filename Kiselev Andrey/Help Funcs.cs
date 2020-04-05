@@ -91,7 +91,7 @@ namespace Kiselev_Andrey
 
     public static class StartMenu
     {
-        public static byte Choise(string start_text, params string[] texts) {
+        public static byte Choiсe(string start_text, params string[] texts) {
 
             Console.WriteLine($"\n\t{start_text}\n");
             for (int i = 0; i < texts.Length; i++)
