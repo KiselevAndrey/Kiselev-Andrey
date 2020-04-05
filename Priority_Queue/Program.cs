@@ -7,16 +7,12 @@ namespace Priority_Queue
     class Program
     {
         static int Num_queue { get; set; }
-        static int Num_prior_queue { get; set; }
 
         static void Main(string[] args)
         {
-            Random rand = new Random();
-            Num_queue = rand.Next(50, 100);
-            Num_prior_queue = rand.Next(20, 100);
+            Num_queue = 0;
 
             Queue<string> patients = new Queue<string>();
-            Queue<string> prior_patients = new Queue<string>();
 
             while (true)
             {
@@ -26,11 +22,11 @@ namespace Priority_Queue
                 switch (choiсe)
                 {
                     case 1:
-                        AddPatient(ref patients, ref prior_patients);
+                        AddPatient(ref patients);
                         break;
 
                     case 2:
-                        NextPatient(ref patients, ref prior_patients);
+                        NextPatient(ref patients);
                         break;
 
                     default:
@@ -42,21 +38,22 @@ namespace Priority_Queue
             }
         }
 
-        static void AddPatient(ref Queue<string> queue, ref Queue<string> prior_queue)
+        static void AddPatient(ref Queue<string> queue)
         {
             byte choise = StartMenu.Choiсe("Take ticket", "Doctor survey", "Hight temperure");
             if (choise == 0) return;
 
+            int position;
             switch (choise)
             {
                 case 1:
-                    TakeTicket($"Q{Num_queue++}", ref queue);
-                    Console.WriteLine($"You are {queue.Count + prior_queue.Count} patient in queue");
+                    TakeTicket($"Q{++Num_queue}", ref queue, out position);
+                    Console.WriteLine($"You are {queue.Count} patient in queue");
                     break;
 
                 case 2:
-                    TakeTicket($"PQ{Num_prior_queue++}", ref prior_queue);
-                    Console.WriteLine($"You are {prior_queue.Count} patient in queue");
+                    TakeTicket($"PQ{++Num_queue}", ref queue, out position);
+                    Console.WriteLine($"You are {position} patient in queue");
                     break;
 
                 default:
@@ -65,19 +62,49 @@ namespace Priority_Queue
             }
         }
 
-        static void TakeTicket(string num_ticket, ref Queue<string> queue)
+        static void TakeTicket(string num_ticket, ref Queue<string> queue, out int position)
         {
-            queue.Enqueue(num_ticket);
+            position = 1;
+            if (queue.Count == 0)
+            {
+                queue.Enqueue(num_ticket);
+            }
+            else
+            {
+                Queue<string> temp_queue = new Queue<string>();
+                bool flag_add_new_patient = false;
+                foreach (var patient in queue)
+                {
+                    if (patient[0] == 'P')
+                    {
+                        position++;
+                        temp_queue.Enqueue(patient);
+                        continue;
+                    }
+                    if (!flag_add_new_patient && num_ticket[0] == 'P')
+                    {
+                        temp_queue.Enqueue(num_ticket);
+                        flag_add_new_patient = true;
+                    }
+                    temp_queue.Enqueue(patient);
+                }
+                if (!flag_add_new_patient)
+                {
+                    temp_queue.Enqueue(num_ticket);
+                }
+                queue.Clear();
+                foreach (var patient in temp_queue)
+                {
+                    queue.Enqueue(patient);
+                }
+            }            
+
             Console.WriteLine($"Your ticket num is <{num_ticket}>");
         }
 
-        static void NextPatient(ref Queue<string> queue, ref Queue<string> prior_queue)
+        static void NextPatient(ref Queue<string> queue)
         {
-            if (prior_queue.Count > 0) 
-            {
-                Console.WriteLine($"Next patient {prior_queue.Dequeue()}");
-            }
-            else if (queue.Count > 0)
+            if (queue.Count > 0)
             {
                 Console.WriteLine($"Next patient {queue.Dequeue()}");
             }
