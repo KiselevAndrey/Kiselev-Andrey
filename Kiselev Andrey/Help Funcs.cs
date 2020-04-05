@@ -38,8 +38,13 @@ namespace Kiselev_Andrey
 
         public static string String(string text)
         {
-            Console.Write(text);
-            return Console.ReadLine();
+            while (true)
+            {
+                Console.Write(text);
+                string s = Console.ReadLine();
+                if (s.Length > 0) return s;
+                Console.WriteLine("Not Empty! Try again.");
+            }
         }
     }
 
