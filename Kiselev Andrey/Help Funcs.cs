@@ -113,4 +113,20 @@ namespace Kiselev_Andrey
             Console.Clear();
         }
     }
+
+    public static class Array
+    {
+        public static void Shaffle<T>(ref T[] arr)
+        {
+            Random rand = new Random();
+            int n = arr.Length;
+            while (n > 1)
+            {
+                int k = rand.Next(n--);
+                T temp = arr[n];
+                arr[n] = arr[k];
+                arr[k] = temp;
+            }
+        }
+    }
 }

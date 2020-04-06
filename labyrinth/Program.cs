@@ -6,14 +6,15 @@ namespace labyrinth
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            while (true)
+            {
+                new Labyrinth(40, 80);
+                Console.WriteLine();
+                Console.ReadLine();
+                Console.Clear();
+            }
         }
     }
 
-    class Labyrinth
-    {
-        public int width = 0;
-        int height = 0;
 
-    }
 }
