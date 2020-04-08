@@ -14,7 +14,7 @@ namespace Kiselev_Andrey
                 if (!byte.TryParse(Console.ReadLine(), out byte num))
                 {
                     Console.WriteLine("Неправильный ввод");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     continue;
                 }
                 return num;
@@ -29,10 +29,21 @@ namespace Kiselev_Andrey
                 if (!int.TryParse(Console.ReadLine(), out int num))
                 {
                     Console.WriteLine("Неправильный ввод! Нужно целое число");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     continue;
                 }
                 return num;
+            }
+        }
+
+        public static string String(string text)
+        {
+            while (true)
+            {
+                Console.Write(text);
+                string s = Console.ReadLine();
+                if (s.Length > 0) return s;
+                Console.WriteLine("Not Empty! Try again.");
             }
         }
     }
@@ -75,6 +86,47 @@ namespace Kiselev_Andrey
                 text = text.Insert(text.Length, " ");
             }
             Console.Write(text);
+        }
+    }
+
+    public static class StartMenu
+    {
+        public static byte Choiсe(string start_text, params string[] texts) {
+
+            Console.WriteLine($"\n\t{start_text}\n");
+            for (int i = 0; i < texts.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {texts[i]}");
+            }
+            Console.WriteLine("\n0. Exit");
+            byte result = ConsoleRead.Byte("\nYour choise: ");
+
+            Console.Clear();
+
+            return result;
+        }
+        
+        public static void EnterClearConsole()
+        {
+            Console.WriteLine("\n\nPress Enter.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+    }
+
+    public static class Array
+    {
+        public static void Shaffle<T>(ref T[] arr)
+        {
+            Random rand = new Random();
+            int n = arr.Length;
+            while (n > 1)
+            {
+                int k = rand.Next(n--);
+                T temp = arr[n];
+                arr[n] = arr[k];
+                arr[k] = temp;
+            }
         }
     }
 }
