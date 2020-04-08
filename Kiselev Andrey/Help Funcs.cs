@@ -112,6 +112,12 @@ namespace Kiselev_Andrey
             Console.ReadLine();
             Console.Clear();
         }
+
+        public static void Enter()
+        {
+            Console.WriteLine("\n\nPress Enter.");
+            Console.ReadLine();
+        }
     }
 
     public static class Array
