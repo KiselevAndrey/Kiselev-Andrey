@@ -25,7 +25,7 @@ namespace HW_7
 
             while (true)
             {
-                byte choice = StartMenu.Choiсe("Student's group", ");
+                byte choice = StartMenu.Choiсe("Student's group");
 
                 StartMenu.EnterClearConsole();
             }
