@@ -27,7 +27,7 @@ namespace HW_7
             if (print)
             {
                 Console.WriteLine($"My new mark: {mark}");
-                Console.WriteLine($"My average mark: {AverageMark()}. {Name}");
+                Console.WriteLine($"My average mark: {AverageMark()}. {Name} {Group}");
             }
         }
 
@@ -48,10 +48,34 @@ namespace HW_7
             Console.WriteLine($"{Group} {Name}");
         }
 
+        public void PrintAverageMark()
+        {
+            Console.Write($"{Name}: ");
+            if (marks.Count > 0)
+            {
+                foreach (var mark in marks)
+                {
+                    Console.Write($" {mark}");
+                }
+                Console.WriteLine($". averge = {AverageMark()}");
+            }
+            else Console.WriteLine("No marks");
+        }
+
         public void AddGroup(string group, bool print = false)
         {
             Group = group;
             if (print) Console.WriteLine($"Now my group is {Group}. {Name}");
+        }
+
+        public static bool operator ==(Student st1, Student st2)
+        {
+            return st1.Name == st2.Name;
+        }
+
+        public static bool operator !=(Student st1, Student st2)
+        {
+            return st1.Name != st2.Name;
         }
     }
 }
