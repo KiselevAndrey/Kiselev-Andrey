@@ -9,16 +9,17 @@ namespace labyrinth
         Cell[,] matrix;
         readonly Dictionary<string, int[]> start_finish_coordinate = new Dictionary<string, int[]>();
         readonly Dictionary<string, int[]> coordinate_changer = new Dictionary<string, int[]>();
-        readonly int speed_visual_generator = 500;
+        readonly int speed_visual_generator;
         readonly bool print_help_lines = false;
 
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        public Labyrinth(int width, int height)
+        public Labyrinth(int width, int height, int speed_visual_generator = 500)
         {
             Width = width;
             Height = height;
+            this.speed_visual_generator = speed_visual_generator;
             FillingCoordinChanger();
             GenerateLabyrinth();
             //Print();

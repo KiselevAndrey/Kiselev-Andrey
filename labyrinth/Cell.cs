@@ -9,7 +9,7 @@ namespace labyrinth
 
         private int x, y;
         readonly Dictionary<string, char> content_name = new Dictionary<string, char>
-        { { "path", ' ' }, { "wall", 'W' }, { "way", '*'}, { "border", 'M'}, { "start", 'S' }, { "finish", 'F' }, { "another", '?' } };
+        { { "path", '\u25A0' }, { "wall", ' ' }, { "way", '*'}, { "border", '\u25A0'}, { "start", 'S' }, { "finish", 'F' }, { "another", '?' } };
 
         public string Content { get; private set; }
 
@@ -25,7 +25,15 @@ namespace labyrinth
 
         public void Print()
         {
+            if (Content == "border")
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            if (Content == "path")
+                Console.ForegroundColor = ConsoleColor.White;
+            if (Content == "start" || Content == "finish")
+                Console.ForegroundColor = ConsoleColor.Red;
+
             Console.Write(content_name[Content]);
+            Console.ResetColor();
         }
 
         public void SetContent(string content)
