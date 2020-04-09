@@ -6,10 +6,14 @@ namespace labyrinth
 {
     class Cell
     {
+        int X { get; set; }
+        int Y { get; set; }
+        
+        public int LeePoint { get; set; }
 
-        private int x, y;
         readonly Dictionary<string, char> content_name = new Dictionary<string, char>
-        { { "path", '\u25A0' }, { "wall", ' ' }, { "way", '*'}, { "border", '\u25A0'}, { "start", 'S' }, { "finish", 'F' }, { "another", '?' } };
+        { { Info.Path, '\u25A0' }, { Info.Wall, ' ' }, { Info.Way, '\u25A0'}, { Info.Border, '\u25A0'}, { Info.Start, 'S' }, { Info.Finish, 'F' }, { Info.Another, '?' },
+            {Info.Theseus, 'T' } };
 
         public string Content { get; private set; }
 
@@ -17,20 +21,27 @@ namespace labyrinth
 
         public Cell(int x, int y, string content)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
             SetContent(content);
             SetPrevCell(this);
+            LeePoint = -1;
         }
+
+        public Cell() { }
 
         public void Print()
         {
-            if (Content == "border")
+            if (Content == Info.Border)
                 Console.ForegroundColor = ConsoleColor.Yellow;
-            if (Content == "path")
+            else if (Content == Info.Path)
                 Console.ForegroundColor = ConsoleColor.White;
-            if (Content == "start" || Content == "finish")
+            else if (Content == Info.Start || Content == Info.Finish)
                 Console.ForegroundColor = ConsoleColor.Red;
+            else if (Content == Info.Way)
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            else if (Content == Info.Theseus)
+                Console.ForegroundColor = ConsoleColor.Gray;
 
             Console.Write(content_name[Content]);
             Console.ResetColor();
@@ -38,7 +49,7 @@ namespace labyrinth
 
         public void SetContent(string content)
         {
-            Content = content_name.ContainsKey(content) ? content : "anoter";
+            Content = content_name.ContainsKey(content) ? content : Info.Another;
         }
 
         public void SetPrevCell(Cell cell)
@@ -48,34 +59,41 @@ namespace labyrinth
 
         public int[] GetCoordinate()
         {
-            return new int[2] { x, y };
+            return new int[2] { X, Y };
         }
 
         public void WallFromPath()
         {
-            if (Content == "wall")
+            if (Content == Info.Wall)
             {
-                SetContent("path");
+                SetContent(Info.Path);
             }
         }
 
         public bool CompairCoord(int[] coordin)
         {
-            if (x != coordin[0] || y != coordin[1])
+            if (X != coordin[0] || Y != coordin[1])
             {
                 return false;
             }
             return true;
         }
 
+        public bool CompairContent(string content)
+        {
+            return content == Content;
+        }
+
+
         public static bool operator ==(Cell cell1, Cell cell2)
         {
-            return cell1.x == cell2.x && cell1.y == cell2.y;
+            return cell1.X == cell2.X && cell1.Y == cell2.Y;
         }
 
         public static bool operator !=(Cell cell1, Cell cell2)
         {
-            return cell1.x != cell2.x || cell1.y != cell2.y;
+            return cell1.X != cell2.X || cell1.Y != cell2.Y;
         }
+
     }
 }

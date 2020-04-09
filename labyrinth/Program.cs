@@ -8,7 +8,7 @@ namespace labyrinth
         {
             while (true)
             {
-                new Labyrinth(40, 80);
+                new Theseus(new Labyrinth(40, 80, 500));
                 Console.WriteLine();
                 Console.ReadLine();
                 Console.Clear();

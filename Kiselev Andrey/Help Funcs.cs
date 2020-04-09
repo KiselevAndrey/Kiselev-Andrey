@@ -48,6 +48,38 @@ namespace Kiselev_Andrey
         }
     }
 
+    public static class StartMenu
+    {
+        public static byte Choiсe(string start_text, params string[] texts)
+        {
+
+            Console.WriteLine($"\n\t{start_text}\n");
+            for (int i = 0; i < texts.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {texts[i]}");
+            }
+            Console.WriteLine("\n0. Exit");
+            byte result = ConsoleRead.Byte("\nYour choise: ");
+
+            Console.Clear();
+
+            return result;
+        }
+
+        public static void EnterClearConsole()
+        {
+            Console.WriteLine("\n\nPress Enter.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        public static void Enter()
+        {
+            Console.WriteLine("\n\nPress Enter.");
+            Console.ReadLine();
+        }
+    }
+
     public static class Matrix
     {
         public static void Print(string text, int[,] matrix, byte count_symbol = 5)
@@ -87,33 +119,24 @@ namespace Kiselev_Andrey
             }
             Console.Write(text);
         }
-    }
 
-    public static class StartMenu
-    {
-        public static byte Choiсe(string start_text, params string[] texts) {
-
-            Console.WriteLine($"\n\t{start_text}\n");
-            for (int i = 0; i < texts.Length; i++)
-            {
-                Console.WriteLine($"{i + 1}. {texts[i]}");
-            }
-            Console.WriteLine("\n0. Exit");
-            byte result = ConsoleRead.Byte("\nYour choise: ");
-
-            Console.Clear();
-
-            return result;
-        }
-        
-        public static void EnterClearConsole()
+        public static T[] Geting<T>(T[][] matrix, int index)
         {
-            Console.WriteLine("\n\nPress Enter.");
-            Console.ReadLine();
-            Console.Clear();
+            while (index >= matrix.Length)
+                index -= matrix.Length;
+            return matrix[index];
+        }
+
+        public static T Geting<T>(T[][] matrix, int i, int j)
+        {
+            while (i >= matrix.Length)
+                i -= matrix.Length;
+            while (j >= matrix[i].Length)
+                j -= matrix[i].Length;
+            return matrix[i][j];
         }
     }
-
+    
     public static class Array
     {
         public static void Shaffle<T>(ref T[] arr)
@@ -127,6 +150,14 @@ namespace Kiselev_Andrey
                 arr[n] = arr[k];
                 arr[k] = temp;
             }
+        }
+
+        public static T Geting<T>(T[] arr, int index)
+        {
+            while (index < 0)               index += arr.Length;
+            while (index >= arr.Length)     index -= arr.Length;
+
+            return arr[index];
         }
     }
 }
