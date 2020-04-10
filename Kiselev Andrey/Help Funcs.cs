@@ -28,8 +28,37 @@ namespace Kiselev_Andrey
                 Console.Write(text);
                 if (!int.TryParse(Console.ReadLine(), out int num))
                 {
-                    Console.WriteLine("Неправильный ввод! Нужно целое число");
-                    //Console.ReadLine();
+                    Console.WriteLine("Error Input! Integer is required.");
+                    continue;
+                }
+                return num;
+            }
+        }
+
+        /// <summary>
+        /// Return int > 0
+        /// </summary>
+        /// <param name="text"> text befor input Console.Write() </param>
+        /// <returns>int > 0</returns>
+        public static int IntPositive(string text)
+        {
+            return IntMore(text, 1);
+        }
+
+        /// <summary>
+        /// return int > less_num
+        /// </summary>
+        /// <param name="text"> text befor input Console.Write() </param>
+        /// <param name="less_num"> num </param>
+        /// <returns></returns>
+        public static int IntMore(string text, int less_num)
+        {
+            while (true)
+            {
+                int num = Int(text);
+                if (num <= less_num)
+                {
+                    Console.WriteLine($"Required > {less_num}");
                     continue;
                 }
                 return num;

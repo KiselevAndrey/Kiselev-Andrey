@@ -46,9 +46,10 @@ namespace labyrinth
 
         void StartAdventure()
         {
-            RightHand(labyrinth.Height);
-            LeftHand(labyrinth.Height + 1);
-            Lee(labyrinth.Height + 2);
+            int start_column = labyrinth.Height + 1;
+            RightHand(start_column);
+            LeftHand(start_column + 1);
+            Lee(start_column + 2);
         }
 
         void RightHand(int column_cursor)
@@ -89,9 +90,8 @@ namespace labyrinth
                     }
                 }
             }
-            Console.ReadLine();
-            labyrinth.Reset();
-            Console.SetCursorPosition(0, pos_cursor[1] + 1);
+
+            FinalyText(text.Length);
         }
 
         void LeftHand(int column_cursor)
@@ -132,9 +132,8 @@ namespace labyrinth
                     }
                 }
             }
-            Console.ReadLine();
-            labyrinth.Reset();
-            Console.SetCursorPosition(0, pos_cursor[1] + 1);
+
+            FinalyText(text.Length);
         }
 
         void Turn(string dir)
@@ -281,10 +280,19 @@ namespace labyrinth
                 TryStep(temp);
             }
 
-            Console.ReadLine();
+            FinalyText(text.Length);
+        }
+
+        void FinalyText(int len_your_previos_text)
+        {
+            string text_fin = " Press any key ";
+            Console.Write(text_fin);
+            Console.ReadKey();
+            Console.SetCursorPosition(len_your_previos_text + Step.ToString().Length, pos_cursor[1]);
+            for (int i = 0; i != text_fin.Length + 1; i++)
+                Console.Write(" ");
             labyrinth.Reset();
             Console.SetCursorPosition(0, pos_cursor[1] + 1);
-
         }
     }
 }
