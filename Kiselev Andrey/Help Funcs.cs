@@ -75,6 +75,22 @@ namespace Kiselev_Andrey
                 Console.WriteLine("Not Empty! Try again.");
             }
         }
+
+        public static char Char(string text)
+        {
+            while (true)
+            {
+                Console.Write(text);
+                char c = Console.ReadKey().KeyChar;
+                if (c == Convert.ToChar(13))
+                {
+                    Console.WriteLine("Don't press Enter");
+                    continue;
+                }
+                Console.WriteLine();
+                return c;
+            }
+        }
     }
 
     public static class StartMenu
@@ -106,6 +122,14 @@ namespace Kiselev_Andrey
         {
             Console.WriteLine("\n\nPress Enter.");
             Console.ReadLine();
+        }
+
+        public static void Line(int num = 10)
+        {
+            Console.WriteLine();
+            for (int i = 0; i < num; i++)
+                Console.Write("-");
+            Console.WriteLine("\n");
         }
     }
 
@@ -187,7 +211,7 @@ namespace Kiselev_Andrey
             }
         }
 
-        public static T Geting<T>(T[] arr, int index)
+        public static T Getting<T>(T[] arr, int index)
         {
             while (index < 0)               index += arr.Length;
             while (index >= arr.Length)     index -= arr.Length;
