@@ -164,6 +164,12 @@ namespace Kiselev_Andrey
                 j -= matrix[i].Length;
             return matrix[i][j];
         }
+
+        public static void Enter()
+        {
+            Console.WriteLine("\n\nPress Enter.");
+            Console.ReadLine();
+        }
     }
     
     public static class Array
