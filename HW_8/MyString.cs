@@ -52,6 +52,47 @@ namespace HW_8
             }
         }
 
+        /// <summary>
+        /// Initiliazed string by int
+        /// </summary>
+        /// <param name="value"></param>
+        public MyString(int value)
+        {
+            int l = IntLength(value);
+            Text = new char[l];
+
+            if (value < 0)
+            {
+                Text[0] = '-';
+                value *= -1;
+            }
+
+            int i = - 1;
+            while(value!= 0)
+            {
+                var k = Convert.ToChar(value % 10 + '0');
+                this[i] = k;
+                value /= 10;
+                i--;
+            }
+        }
+
+        int IntLength(int num)
+        {
+            int count = 1;
+            if (num < 0)
+            {
+                count++;
+                num *= -1;
+            }
+            while (num > 9)
+            {
+                num /= 10;
+                count++;
+            }
+            return count;
+        }
+
         public char this[int index]
         {
             get
@@ -60,6 +101,13 @@ namespace HW_8
                 while (index >= Length) index -= Length;
 
                 return Text[index];
+            }
+            private set
+            {
+                while (index < 0) index += Length;
+                while (index >= Length) index -= Length;
+
+                Text[index] = value;
             }
         }
 
@@ -193,10 +241,10 @@ namespace HW_8
             return position;
         }
 
-        public string IndexOfToString(int num)
+        public MyString IndexOfToMyString(int num)
         {
-            if (num == -1) return "none";
-            return num.ToString();
+            if (num == -1) return new MyString("none");
+            return new MyString(num);
         }
     }
 }

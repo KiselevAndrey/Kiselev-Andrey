@@ -46,6 +46,12 @@ namespace HW_8
             Console.WriteLine("With ReadOnlySpan<char>\n");
             str = new MyString(ConsoleRead.String("Input string: "));
             Console.WriteLine($"\nYour string is: {str}");
+            StartMenu.Line();
+
+            Console.WriteLine("With Int\n");
+            str = new MyString(ConsoleRead.Int("Input number: "));
+            Console.WriteLine($"\nYour string is: {str}");
+            StartMenu.Line();
         }
 
         static void Contains()
@@ -64,24 +70,24 @@ namespace HW_8
 
             Console.WriteLine("MyString.IndexOf(char)\n");
             char c = ConsoleRead.Char("Input char symbol: ");
-            Console.WriteLine($"First index of input {c} in string is: {str.IndexOfToString(str.IndexOf(c))}");
+            Console.WriteLine($"First index of input {c} in string is: {str.IndexOfToMyString(str.IndexOf(c))}");
             StartMenu.Line();
 
             Console.WriteLine("MyString.IndexOf(char, start_index)\n");
             c = ConsoleRead.Char("Input char symbol: ");
             int start = ConsoleRead.Int("Input start index: ");
-            Console.WriteLine($"First index of input {c} in string is: {str.IndexOfToString(str.IndexOf(c, start))}");
+            Console.WriteLine($"First index of input {c} in string is: {str.IndexOfToMyString(str.IndexOf(c, start))}");
             StartMenu.Line();
 
             Console.WriteLine("MyString.IndexOf(string)\n");
             string s = ConsoleRead.String("Input substring: ");
-            Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToString(str.IndexOf(s))}");
+            Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToMyString(str.IndexOf(s))}");
             StartMenu.Line();
 
             Console.WriteLine("MyString.IndexOf(string, start_index)\n");
             s = ConsoleRead.String("Input substring: ");
             start = ConsoleRead.Int("Input start index: ");
-            Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToString(str.IndexOf(s, start))}");
+            Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToMyString(str.IndexOf(s, start))}");
         }
     }
 }
