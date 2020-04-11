@@ -46,7 +46,6 @@ namespace HW_8
             Console.WriteLine("With ReadOnlySpan<char>\n");
             str = new MyString(ConsoleRead.String("Input string: "));
             Console.WriteLine($"\nYour string is: {str}");
-            StartMenu.EnterClearConsole();
         }
 
         static void Contains()
@@ -54,9 +53,7 @@ namespace HW_8
             Console.WriteLine("\n\tMyString.Contains\n");
             StartMenu.Line();
             MyString str = new MyString(ConsoleRead.String("Input string: "));
-            Console.WriteLine("\nSubstring is " + (str.Contains(ConsoleRead.String("Input substring: ")) ? "" : "don't ") + "input in string");
-            StartMenu.Line();
-            StartMenu.EnterClearConsole();
+            Console.WriteLine("\nSubstring " + (str.Contains(ConsoleRead.String("Input substring: ")) ? "" : "don't ") + "input in string");
         }
 
         static void IndexOf()
@@ -85,7 +82,6 @@ namespace HW_8
             s = ConsoleRead.String("Input substring: ");
             start = ConsoleRead.Int("Input start index: ");
             Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToString(str.IndexOf(s, start))}");
-            StartMenu.Line();
         }
     }
 }

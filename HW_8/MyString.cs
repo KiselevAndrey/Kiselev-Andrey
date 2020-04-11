@@ -6,7 +6,7 @@ namespace HW_8
 {
     class MyString
     {
-        public string Text { get; private set; }
+        public char[] Text { get; private set; }
         public int Length => Text.Length;
 
         /// <summary>
@@ -15,11 +15,11 @@ namespace HW_8
         /// <param name="value"></param>
         public MyString(char[] value)
         {
-            Text = "";
+            Text = new char[value.Length];
 
-            foreach (var ch in value)
+            for (int i = 0; i < Length; i++)
             {
-                Text += ch;
+                Text[i] = value[i];
             }
         }
 
@@ -30,11 +30,11 @@ namespace HW_8
         /// <param name="count"></param>
         public MyString(char ch, int count)
         {
-            Text = "";
+            Text = new char[count];
 
             for (int i = 0; i < count; i++)
             {
-                Text += ch;
+                Text[i] = ch;
             }
         }
 
@@ -44,11 +44,11 @@ namespace HW_8
         /// <param name="value"></param>
         public MyString(ReadOnlySpan<char> value)
         {
-            Text = "";
+            Text = new char[value.Length];
 
-            foreach (var ch in value)
+            for (int i = 0; i < Length; i++)
             {
-                Text += ch;
+                Text[i] = value[i];
             }
         }
 
@@ -65,7 +65,12 @@ namespace HW_8
 
         public override string ToString()
         {
-            return Text;
+            string res = "";
+            for (int i = 0; i < Length; i++)
+            {
+                res += Text[i];
+            }
+            return res;
         }
 
         /// <summary>
