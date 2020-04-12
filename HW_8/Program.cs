@@ -59,7 +59,7 @@ namespace HW_8
             Console.WriteLine("\n\tMyString.Contains\n");
             StartMenu.Line();
             MyString str = new MyString(ConsoleRead.String("Input string: "));
-            Console.WriteLine("\nSubstring " + (str.Contains(ConsoleRead.String("Input substring: ")) ? "" : "don't ") + "input in string");
+            Console.WriteLine("\nSubstring " + (str.Contains(new MyString(ConsoleRead.String("Input substring: "))) ? "" : "don't ") + "input in string");
         }
 
         static void IndexOf()
@@ -80,12 +80,12 @@ namespace HW_8
             StartMenu.Line();
 
             Console.WriteLine("MyString.IndexOf(string)\n");
-            string s = ConsoleRead.String("Input substring: ");
+            MyString s = new MyString(ConsoleRead.String("Input substring: "));
             Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToMyString(str.IndexOf(s))}");
             StartMenu.Line();
 
             Console.WriteLine("MyString.IndexOf(string, start_index)\n");
-            s = ConsoleRead.String("Input substring: ");
+            s = new MyString(ConsoleRead.String("Input substring: "));
             start = ConsoleRead.Int("Input start index: ");
             Console.WriteLine($"First index of input {s} in string is: {str.IndexOfToMyString(str.IndexOf(s, start))}");
         }

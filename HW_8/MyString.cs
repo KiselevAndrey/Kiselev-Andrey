@@ -126,7 +126,7 @@ namespace HW_8
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public bool Contains(string str)
+        public bool Contains(MyString str)
         {
             for (int i = 0; i < Length; i++)
             {
@@ -185,7 +185,7 @@ namespace HW_8
         /// Возвращает -1, если нет вхождения
         /// </summary>
         /// <returns>-1 если нет вхождения</returns>
-        public int IndexOf(string str, int start)
+        public int IndexOf(MyString str, int start)
         {
             int position = -1;
             if (start < 0 || start >= Length) return position;
@@ -216,7 +216,7 @@ namespace HW_8
         /// Возвращает -1, если нет вхождения
         /// </summary>
         /// <returns>-1 если нет вхождения</returns>
-        public int IndexOf(string str)
+        public int IndexOf(MyString str)
         {
             int position = -1;
 
