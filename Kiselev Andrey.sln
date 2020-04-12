@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kiselev Andrey", "Kiselev A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW_8", "HW_8\HW_8.csproj", "{B8849E3C-DF04-4777-AF20-41EA37651DEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brackets", "Brackets\Brackets.csproj", "{4C95A783-229C-4A05-AFFF-A8DA8DFC5FF4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B8849E3C-DF04-4777-AF20-41EA37651DEE} = {B8849E3C-DF04-4777-AF20-41EA37651DEE}
+		{34F4BC4D-D489-40EF-85A8-EC445DD54A99} = {34F4BC4D-D489-40EF-85A8-EC445DD54A99}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,10 @@ Global
 		{B8849E3C-DF04-4777-AF20-41EA37651DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8849E3C-DF04-4777-AF20-41EA37651DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8849E3C-DF04-4777-AF20-41EA37651DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C95A783-229C-4A05-AFFF-A8DA8DFC5FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C95A783-229C-4A05-AFFF-A8DA8DFC5FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C95A783-229C-4A05-AFFF-A8DA8DFC5FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C95A783-229C-4A05-AFFF-A8DA8DFC5FF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

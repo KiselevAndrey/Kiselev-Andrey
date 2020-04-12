@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HW_8
 {
-    class MyString
+    public class @string
     {
         public char[] Text { get; private set; }
         public int Length => Text.Length;
@@ -13,7 +13,7 @@ namespace HW_8
         /// Initiliazed string by array
         /// </summary>
         /// <param name="value"></param>
-        public MyString(char[] value)
+        public @string(char[] value)
         {
             Text = new char[value.Length];
 
@@ -28,7 +28,7 @@ namespace HW_8
         /// </summary>
         /// <param name="ch"></param>
         /// <param name="count"></param>
-        public MyString(char ch, int count)
+        public @string(char ch, int count)
         {
             Text = new char[count];
 
@@ -42,7 +42,7 @@ namespace HW_8
         /// Initiliazed string by string
         /// </summary>
         /// <param name="value"></param>
-        public MyString(ReadOnlySpan<char> value)
+        public @string(ReadOnlySpan<char> value)
         {
             Text = new char[value.Length];
 
@@ -56,7 +56,7 @@ namespace HW_8
         /// Initiliazed string by int
         /// </summary>
         /// <param name="value"></param>
-        public MyString(int value)
+        public @string(int value)
         {
             int l = IntLength(value);
             Text = new char[l];
@@ -126,7 +126,7 @@ namespace HW_8
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public bool Contains(MyString str)
+        public bool Contains(@string str)
         {
             for (int i = 0; i < Length; i++)
             {
@@ -185,7 +185,7 @@ namespace HW_8
         /// Возвращает -1, если нет вхождения
         /// </summary>
         /// <returns>-1 если нет вхождения</returns>
-        public int IndexOf(MyString str, int start)
+        public int IndexOf(@string str, int start)
         {
             int position = -1;
             if (start < 0 || start >= Length) return position;
@@ -216,7 +216,7 @@ namespace HW_8
         /// Возвращает -1, если нет вхождения
         /// </summary>
         /// <returns>-1 если нет вхождения</returns>
-        public int IndexOf(MyString str)
+        public int IndexOf(@string str)
         {
             int position = -1;
 
@@ -241,10 +241,10 @@ namespace HW_8
             return position;
         }
 
-        public MyString IndexOfToMyString(int num)
+        public @string IndexOfToMyString(int num)
         {
-            if (num == -1) return new MyString("none");
-            return new MyString(num);
+            if (num == -1) return new @string("none");
+            return new @string(num);
         }
     }
 }
