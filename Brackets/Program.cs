@@ -17,6 +17,8 @@ namespace Brackets
 
                 StartMenu.EnterClearConsole();
             }
+            //  {(})((){}}{)}{{}}({)
+            //  (}{)}{{}}({)
         }
 
         static void Accuracy()
@@ -79,8 +81,7 @@ namespace Brackets
 
             if (flag)
             {
-                Console.WriteLine("\nAll corectly");
-                return;
+                Console.WriteLine("\nBalance brakets is correctly");
             }
 
             Console.WriteLine();
