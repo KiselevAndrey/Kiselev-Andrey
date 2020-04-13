@@ -17,8 +17,6 @@ namespace Brackets
 
                 StartMenu.EnterClearConsole();
             }
-            //  {(})((){}}{)}{{}}({)
-            //  (}{)}{{}}({)
         }
 
         static void Accuracy()
