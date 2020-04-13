@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HW_8\HW_8.csproj" />
+    <ProjectReference Include="..\Kiselev Andrey\Kiselev Andrey.csproj" />
+  </ItemGroup>
+
 </Project>
