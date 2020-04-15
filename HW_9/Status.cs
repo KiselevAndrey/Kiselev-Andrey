@@ -24,6 +24,8 @@ namespace HW_9
 
         public void Print()
         {
+            Console.WriteLine($"\n\t{Name}\n");
+
             foreach (var card in Cards)
             {
                 card.Print();

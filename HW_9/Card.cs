@@ -39,7 +39,7 @@ namespace HW_9
 
         public void Print()
         {
-            Console.WriteLine($"\t{NameAuthor}\n{Text}");
+            Console.WriteLine($"\t{NameAuthor}\n{Text}\n");
         }
 
         public override string ToString()

@@ -45,7 +45,7 @@ namespace HW_9
                     StartMenu.EnterClearConsole("Board count is null");
                     continue;
                 }
-                else if (choice == 2) DelBoardConsole();
+                else if (choice == 2) Print();
                 else if (choice == 3) DelBoardConsole();
                 else if (choice == 4) TravelToBoardConsole();
 
@@ -55,9 +55,11 @@ namespace HW_9
 
         public void Print()
         {
+            Console.WriteLine($"\n\t{Name}\n");
+
             foreach (var board in Boards)
             {
-                board.Print();
+                Console.WriteLine(board);
             }
         }
     }

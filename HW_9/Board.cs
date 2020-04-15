@@ -52,7 +52,7 @@ namespace HW_9
         {
             while (true)
             {
-                byte choice = StartMenu.Choiсe(Name, "Add Status", "Del Status", "Change Status on Card", "Travel to Status", "Change name Board");
+                byte choice = StartMenu.Choiсe(Name, "Add Status", "Del Status", "Change Status on Card", "Travel to Status", "Change name Board", "Print all Statuses");
 
                 if (choice == 0) break;
 
@@ -66,6 +66,7 @@ namespace HW_9
                 else if (choice == 2) DelStatusConsole();
                 else if (choice == 3) ChangeStatusOnCardConsole();
                 else if (choice == 4) TravelToStatusConsole();
+                else if (choice == 6) Print();
 
 
                 StartMenu.EnterClearConsole();
@@ -75,6 +76,16 @@ namespace HW_9
         public override string ToString()
         {
             return $"{Name}";
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"\n\t{Name}\n");
+
+            foreach (var status in Statuses)
+            {
+                status.Print();
+            }
         }
     }
 }
