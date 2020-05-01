@@ -40,6 +40,25 @@ namespace Kiselev_Andrey
             }
         }
 
+        public static byte Byte<T>(string text, Dictionary<byte, T> dict)
+        {
+            while (true)
+            {
+                Console.Write(text);
+                if (!byte.TryParse(Console.ReadLine(), out byte num))
+                {
+                    Console.WriteLine("Error input");
+                    continue;
+                }
+                if (!dict.ContainsKey(num))
+                {
+                    Console.WriteLine($"Input is not included in Keys");
+                    continue;
+                }
+                return num;
+            }
+        }
+
         public static int Int(string text)
         {
             while (true)

@@ -17,6 +17,11 @@ namespace HW_9
             Cards = new List<Card>();
         }
 
+        //public void AddCard()
+        //{
+
+        //}
+
         public void AddCard(Card card)
         {
             Cards.Add(card);
@@ -36,7 +41,7 @@ namespace HW_9
         {
             foreach (var card in Cards)
             {
-                if (card.NameAuthor == author)
+                if (card.Author == author)
                     card.Print();
             }
         }
@@ -49,6 +54,11 @@ namespace HW_9
             Cards.RemoveAt(choice);
 
             return temp;
+        }
+
+        public Card PipLastAddedCard()
+        {
+            return Cards[Cards.Count-1];
         }
 
         public static Status ReadConsole()
@@ -66,38 +76,34 @@ namespace HW_9
             Cards.RemoveAt(StartMenu.Choiсe("Del Board", Cards));
         }
 
-        public void TravelToCardConsole()
-        {
-            if (Cards.Count == 0)
-            {
-                Console.WriteLine("There's no travel");
-                return;
-            }
+        //public void TravelToCardConsole()
+        //{
+        //    if (Cards.Count == 0)
+        //    {
+        //        Console.WriteLine("There's no travel");
+        //        return;
+        //    }
 
-            Console.Clear();
-            Cards[StartMenu.Choiсe("Travel", Cards)].ManagerConsole();
-
-        }
+        //    Console.Clear();
+        //    Cards[StartMenu.Choiсe("Travel", Cards)].ManagerConsole();
+        //}
 
         public void ManagerConsole()
         {
             while (true)
             {
-                byte choice = StartMenu.Choiсe(Name, "Add Card", "Del Card", "Print all Card", "Print Card one author", "Travel to Card", "Change name Status");
+                byte choice = StartMenu.Choiсe(Name, "Print all Card", "Print Card one author", "Change name Status");
 
                 if (choice == 0) break;
 
-                else if (choice == 1) AddCard(Card.ReadConsole());
-                else if (choice == 6) Name = ConsoleRead.String("Inut new name Status: ");
+                else if (choice == 3) Name = ConsoleRead.String("Inut new name Status: ");
                 else if (Cards.Count == 0)
                 {
                     StartMenu.EnterClearConsole("Card count is null");
                     continue;
                 }
-                else if (choice == 2) DelCardConsole();
-                else if (choice == 3) Print();
-                else if (choice == 4) Print(ConsoleRead.String("Input author name: "));
-                else if (choice == 5) TravelToCardConsole();
+                else if (choice == 1) Print();
+                else if (choice == 2) Print(ConsoleRead.String("Input author name: "));
 
                 StartMenu.EnterClearConsole();
             }
@@ -106,6 +112,11 @@ namespace HW_9
         public override string ToString()
         {
             return $"{Name}";
+        }
+
+        public bool Equals(string nameStatus)
+        {
+            return Name == nameStatus;
         }
     }
 }

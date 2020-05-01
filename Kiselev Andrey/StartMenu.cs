@@ -34,6 +34,44 @@ namespace Kiselev_Andrey
             return (byte)(result - 1);
         }
 
+        /// <summary>
+        /// Choice: select old or create new.
+        /// Return from -1 to List.Count - 1
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="start_text"></param>
+        /// <param name="texts"></param>
+        /// <param name="name_add_item"></param>
+        /// <returns>Return from -1 to List.Count - 1</returns>
+        public static sbyte Choiсe<T>(string start_text, List<T> texts, string name_add_item)
+        {
+            Console.WriteLine($"\n\t{start_text}\n");
+            for (int i = 0; i < texts.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {texts[i].ToString()}");
+            }
+            Console.WriteLine($"0. Create new {name_add_item}");
+
+            byte result = ConsoleRead.Byte("\nYour choise: ", 0, texts.Count);
+
+            Console.Clear();
+            return (sbyte)(result - 1);
+        }
+
+        public static byte Choiсe<T>(string start_text, Dictionary<byte, T> texts)
+        {
+            Console.WriteLine($"\n\t{start_text}\n");
+            foreach (var text in texts)
+            {
+                Console.WriteLine($"{text.Key}. {text.Value.ToString()}");
+            }
+            Console.WriteLine("\n0. Exit");
+            byte result = ConsoleRead.Byte("\nYour choise: ");
+
+            Console.Clear();
+            return (byte)(result);
+        }
+
         public static void EnterClearConsole()
         {
             Console.WriteLine("\n\nPress Enter.");

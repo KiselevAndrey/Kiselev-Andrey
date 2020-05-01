@@ -7,29 +7,29 @@ namespace HW_9
 {
     class Card
     {
-        public string NameAuthor { get; private set; }
+        public Author Author { get; private set; }
         public string Text { get; private set; }
 
-        private int maxPrintLength = 15;
+        private readonly int maxPrintLength = 15;
 
         /////////////Dont realisation////////////////
         public DateTime DatePublish { get; private set; }
         public DateTime DueDate { get; private set; }
         /////////////////////////////
 
-        public Card(string author)
+        public Card(Author author)
         {
             SetNameAuthor(author);
         }
 
-        public Card(string author, string text) : this(author)
+        public Card(Author author, string text) : this(author)
         {
             SetText(text);
         }
 
-        public void SetNameAuthor(string author)
+        public void SetNameAuthor(Author author)
         {
-            NameAuthor = author;
+            Author = author;
         }
 
         public void SetText(string text)
@@ -39,12 +39,12 @@ namespace HW_9
 
         public void Print()
         {
-            Console.WriteLine($"\t{NameAuthor}\n{Text}\n");
+            Console.WriteLine($"\t{Author}\n{Text}\n");
         }
 
         public override string ToString()
         {
-            string res = $"{ShortText(NameAuthor)}\n{ShortText(Text)}\n";
+            string res = $"{ShortText(Author.ToString())}\n{ShortText(Text)}\n";
             return res;
         }
 
@@ -54,25 +54,20 @@ namespace HW_9
             if (text.Length > maxPrintLength) res += "\b\b\b...";
             return res;
         }
+        
+        //public void ManagerConsole()
+        //{
+        //    while (true)
+        //    {
+        //        byte choice = StartMenu.Choiсe(Author.ToString(), "Change author", "Change text");
 
-        static public Card ReadConsole()
-        {
-            return new Card(ConsoleRead.String("Input name author: "), ConsoleRead.String("Input card text: "));
-        }
+        //        if (choice == 0) break;
 
-        public void ManagerConsole()
-        {
-            while (true)
-            {
-                byte choice = StartMenu.Choiсe(NameAuthor, "Change author", "Change text");
+        //        //else if (choice == 1) Author = new Author(ConsoleRead.String("Input author name: "));
+        //        else if (choice == 2) Text = ConsoleRead.String("Input new text: ");
 
-                if (choice == 0) break;
-
-                else if (choice == 1) NameAuthor = ConsoleRead.String("Input author name: ");
-                else if (choice == 2) Text = ConsoleRead.String("Input new text: ");
-
-                StartMenu.EnterClearConsole();
-            }
-        }
+        //        StartMenu.EnterClearConsole();
+        //    }
+        //}
     }
 }
