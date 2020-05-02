@@ -17,11 +17,6 @@ namespace HW_9
             Cards = new List<Card>();
         }
 
-        //public void AddCard()
-        //{
-
-        //}
-
         public void AddCard(Card card)
         {
             Cards.Add(card);
@@ -76,18 +71,6 @@ namespace HW_9
             Cards.RemoveAt(StartMenu.Choiсe("Del Board", Cards));
         }
 
-        //public void TravelToCardConsole()
-        //{
-        //    if (Cards.Count == 0)
-        //    {
-        //        Console.WriteLine("There's no travel");
-        //        return;
-        //    }
-
-        //    Console.Clear();
-        //    Cards[StartMenu.Choiсe("Travel", Cards)].ManagerConsole();
-        //}
-
         public void ManagerConsole()
         {
             while (true)
@@ -111,7 +94,7 @@ namespace HW_9
         
         public override string ToString()
         {
-            return $"{Name}";
+            return $"{Name} ({Cards.Count} card)";
         }
 
         public bool Equals(string nameStatus)

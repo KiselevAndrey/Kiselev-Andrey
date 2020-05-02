@@ -94,7 +94,7 @@ namespace HW_9
         {
             while (true)
             {
-                byte choice = StartMenu.Choiсe(Name, "Add Status", "Del Status", "Travel to Status", "Print all Statuses");
+                byte choice = StartMenu.Choiсe(Name, "Add Status", "Del Status", "Print all Statuses");
 
                 if (choice == 0) break;
 
@@ -105,8 +105,7 @@ namespace HW_9
                     continue;
                 }
                 else if (choice == 2) DelStatusConsole();
-                else if (choice == 3) TravelToStatusConsole();
-                else if (choice == 4) Print();
+                else if (choice == 3) Print();
 
 
                 StartMenu.EnterClearConsole();
@@ -128,7 +127,7 @@ namespace HW_9
 
         public void DelStatusConsole()
         {
-            Statuses.RemoveAt(StartMenu.Choiсe("Del Board", Statuses));
+            Statuses.RemoveAt(StartMenu.Choiсe("Del Status", Statuses));
         }
 
         public void TravelToStatusConsole()
@@ -178,6 +177,11 @@ namespace HW_9
         }
         #endregion
 
+        public void DelCard()
+        {
+            Statuses[StartMenu.Choiсe("Choice Status from delete", Statuses)].DelCardConsole();
+        }
+
         public static Board ReadConsole()
         {
             return new Board(ConsoleRead.String("Input board name: "));
@@ -201,7 +205,7 @@ namespace HW_9
 
                 if (choice == 0) break;
 
-                else if (choice == Dict.KeyByValue(nameChoice, "Work with Statuses")) WorkWithStatus();
+                else if (choice == Dict.KeyByValue(nameChoice, "Work with Status")) WorkWithStatus();
                 else if (choice == Dict.KeyByValue(nameChoice, "Change name Board")) Name = ConsoleRead.String("Input new name Board: ");
                 else if (Statuses.Count == 0)
                 {
@@ -211,6 +215,7 @@ namespace HW_9
                 else if (choice == Dict.KeyByValue(nameChoice, "Add Card")) AddCard();
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Print all Statuses")) Print();
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Change card Status")) ChangeStatusOnCardConsole();
+                else if (choice == Dict.KeyByValueLinq(nameChoice, "Del Card")) DelCard();
 
                 StartMenu.EnterClearConsole();
             }
@@ -223,7 +228,7 @@ namespace HW_9
 
         public void Print()
         {
-            Console.WriteLine($"\n\t{Name}\n");
+            Console.WriteLine($"\n\t\t{Name}\n");
 
             foreach (var status in Statuses)
             {

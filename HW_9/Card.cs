@@ -54,20 +54,5 @@ namespace HW_9
             if (text.Length > maxPrintLength) res += "\b\b\b...";
             return res;
         }
-        
-        //public void ManagerConsole()
-        //{
-        //    while (true)
-        //    {
-        //        byte choice = StartMenu.Choiсe(Author.ToString(), "Change author", "Change text");
-
-        //        if (choice == 0) break;
-
-        //        //else if (choice == 1) Author = new Author(ConsoleRead.String("Input author name: "));
-        //        else if (choice == 2) Text = ConsoleRead.String("Input new text: ");
-
-        //        StartMenu.EnterClearConsole();
-        //    }
-        //}
     }
 }
