@@ -49,7 +49,7 @@ namespace HW_9
                 else if (choice == 3) DelBoardConsole();
                 else if (choice == 4) TravelToBoardConsole();
 
-                StartMenu.EnterClearConsole();
+                Console.Clear();
             }
         }
 

@@ -168,12 +168,14 @@ namespace HW_9
         {
             Console.Clear();
             CardCreated();
+            StartMenu.Enter();
         }
 
         void OnCardStatusChanged(string changedStatus)
         {
             Console.Clear();
             CardStatusChanged(changedStatus);
+            StartMenu.Enter();
         }
         #endregion
 
@@ -217,7 +219,7 @@ namespace HW_9
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Change card Status")) ChangeStatusOnCardConsole();
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Del Card")) DelCard();
 
-                StartMenu.EnterClearConsole();
+                Console.Clear();
             }
         }
 
