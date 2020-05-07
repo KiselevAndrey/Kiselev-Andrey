@@ -9,8 +9,8 @@ namespace HW_9
     [Serializable]
     class Board
     {
-        public List<Status> Statuses { get; private set; }
         public string Name { get; private set; }
+        public List<Status> Statuses { get; private set; }
         public List<Author> authors;
 
         public delegate void CreateCard();

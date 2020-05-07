@@ -8,18 +8,11 @@ namespace HW_9
     class Author
     {
         public string Name { get; private set; }
-        //public List<Card> Cards { get; private set; }
 
         public Author(string name)
         {
             Name = name;
-            //Cards = new List<Card>();
         }
-
-        //public void AddCard(Card card)
-        //{
-        //    Cards.Add(card);
-        //}
 
         #region Work with Events
         public void NotificationCreateCard()

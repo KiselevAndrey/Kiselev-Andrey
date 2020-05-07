@@ -8,10 +8,9 @@ namespace HW_9
     [Serializable]
     class Status
     {
-        public List<Card> Cards { get; private set; }
-
         public string Name { get; private set; }
-
+        public List<Card> Cards { get; private set; }
+        
         public Status(string name)
         {
             Name = name;

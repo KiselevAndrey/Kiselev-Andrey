@@ -20,11 +20,11 @@ namespace HW_9
         {
             SetText(text);
         }
-        
-        //[JsonConstructor]
-        public Card(string auhorName, string text)
+
+        [JsonConstructor]
+        public Card(string authorName, string text)
         {
-            AuthorName = auhorName;
+            AuthorName = authorName;
             Text = text;
         }
 

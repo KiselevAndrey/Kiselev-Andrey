@@ -1,0 +1,43 @@
+{
+  "Name": "Trello",
+  "Boards": [
+    {
+      "authors": [
+        {
+          "Name": "Kiselev"
+        },
+        {
+          "Name": "Karytko"
+        },
+        {
+          "Name": "Avramenko"
+        }
+      ],
+      "Name": "hw 13",
+      "Statuses": [
+        {
+          "Name": "to do",
+          "Cards": [
+            {
+              "AuthorName": "Kiselev",
+              "Text": "it's a crazzy"
+            },
+            {
+              "AuthorName": "Avramenko",
+              "Text": "homework is done"
+            }
+          ]
+        },
+        {
+          "Name": "to teacher",
+          "Cards": [
+            {
+              "AuthorName": "Karytko",
+              "Text": "work, work, work"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

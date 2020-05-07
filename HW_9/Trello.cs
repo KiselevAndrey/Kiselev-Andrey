@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using Kiselev_Andrey;
 
@@ -59,8 +58,12 @@ namespace HW_9
 
         void LoadTrelloConsole()
         {
-            string path = Environment.CurrentDirectory.ToString() + "\\saves";
-
+            DirectoryInfo di = new DirectoryInfo(Environment.CurrentDirectory.ToString());
+            di = di.Parent;
+            di = di.Parent;
+            di = di.Parent;
+            string path = di.ToString() + "\\Saves";
+                       
             // если нет папки saves
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
@@ -68,7 +71,7 @@ namespace HW_9
             var dir = new DirectoryInfo(path);
             
             List<FileInfo> files = new List<FileInfo>();
-            foreach (var file in dir.GetFiles())
+            foreach (var file in dir.GetFiles("*.json"))
             {
                 files.Add(file);
             }
@@ -91,7 +94,6 @@ namespace HW_9
             }
             else
             {
-                //ChangeSelf(System.Text.Json.JsonSerializer.Deserialize<Trello>(jsonString));
                 ChangeSelf(JsonConvert.DeserializeObject<Trello>(jsonString));
                 foreach (var board in Boards)
                 {
