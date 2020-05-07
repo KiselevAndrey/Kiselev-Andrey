@@ -6,17 +6,20 @@ using Kiselev_Andrey;
 
 namespace HW_9
 {
+    [Serializable]
     class Board
     {
         public List<Status> Statuses { get; private set; }
         public string Name { get; private set; }
-        readonly List<Author> authors;
+        public List<Author> authors;
 
         public delegate void CreateCard();
         public delegate void ChangeCardStatus(string changedStatus);
+        public delegate void ChangeBoard();
 
         public event CreateCard CardCreated;
         public event ChangeCardStatus CardStatusChanged;
+        public event ChangeBoard BoardChanged;
 
         public Board(string name)
         {
@@ -72,10 +75,11 @@ namespace HW_9
         public void AddCard()
         {
             GetStatusIndex(out int choiceStatus);
+            Console.Clear();
             GetAuthorIndex(out int choiceAuthor);
 
             Statuses[choiceStatus].AddCard(new Card(authors[choiceAuthor], ConsoleRead.String("Input card text: ")));
-            authors[choiceAuthor].AddCard(Statuses[choiceStatus].PipLastAddedCard());
+            //authors[choiceAuthor].AddCard(Statuses[choiceStatus].PipLastAddedCard());
             OnCardCreated();
         }
 
@@ -85,7 +89,7 @@ namespace HW_9
             GetAuthorIndex(out int choiceAuthor, author);
 
             Statuses[choiceStatus].AddCard(new Card(authors[choiceAuthor], text));
-            authors[choiceAuthor].AddCard(Statuses[choiceStatus].PipLastAddedCard());
+            //authors[choiceAuthor].AddCard(Statuses[choiceStatus].PipLastAddedCard());
         }
         #endregion
         
@@ -167,14 +171,16 @@ namespace HW_9
         void OnCardCreated()
         {
             Console.Clear();
-            CardCreated();
+            //CardCreated();
+            BoardChanged();
             StartMenu.Enter();
         }
 
         void OnCardStatusChanged(string changedStatus)
         {
             Console.Clear();
-            CardStatusChanged(changedStatus);
+            //CardStatusChanged(changedStatus);
+            BoardChanged();
             StartMenu.Enter();
         }
         #endregion
@@ -209,12 +215,12 @@ namespace HW_9
 
                 else if (choice == Dict.KeyByValue(nameChoice, "Work with Status")) WorkWithStatus();
                 else if (choice == Dict.KeyByValue(nameChoice, "Change name Board")) Name = ConsoleRead.String("Input new name Board: ");
+                else if (choice == Dict.KeyByValue(nameChoice, "Add Card")) AddCard();
                 else if (Statuses.Count == 0)
                 {
                     StartMenu.EnterClearConsole("Status count is null");
                     continue;
                 }
-                else if (choice == Dict.KeyByValue(nameChoice, "Add Card")) AddCard();
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Print all Statuses")) Print();
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Change card Status")) ChangeStatusOnCardConsole();
                 else if (choice == Dict.KeyByValueLinq(nameChoice, "Del Card")) DelCard();
@@ -236,6 +242,8 @@ namespace HW_9
             {
                 status.Print();
             }
+
+            StartMenu.Enter();
         }
     }
 }

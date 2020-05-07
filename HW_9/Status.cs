@@ -5,6 +5,7 @@ using Kiselev_Andrey;
 
 namespace HW_9
 {
+    [Serializable]
     class Status
     {
         public List<Card> Cards { get; private set; }
@@ -36,7 +37,7 @@ namespace HW_9
         {
             foreach (var card in Cards)
             {
-                if (card.Author == author)
+                if (card.AuthorName == author)
                     card.Print();
             }
         }

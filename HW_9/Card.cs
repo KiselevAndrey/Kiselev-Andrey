@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Kiselev_Andrey;
+using Newtonsoft.Json;
 
 namespace HW_9
 {
+    [Serializable]
     class Card
     {
-        public Author Author { get; private set; }
+        public string AuthorName { get; private set; }
         public string Text { get; private set; }
 
         private readonly int maxPrintLength = 15;
-
-        /////////////Dont realisation////////////////
-        public DateTime DatePublish { get; private set; }
-        public DateTime DueDate { get; private set; }
-        /////////////////////////////
-
+        
         public Card(Author author)
         {
             SetNameAuthor(author);
@@ -26,10 +20,17 @@ namespace HW_9
         {
             SetText(text);
         }
+        
+        //[JsonConstructor]
+        public Card(string auhorName, string text)
+        {
+            AuthorName = auhorName;
+            Text = text;
+        }
 
         public void SetNameAuthor(Author author)
         {
-            Author = author;
+            AuthorName = author.Name;
         }
 
         public void SetText(string text)
@@ -39,12 +40,12 @@ namespace HW_9
 
         public void Print()
         {
-            Console.WriteLine($"\t{Author}\n{Text}\n");
+            Console.WriteLine($"\t{AuthorName}\n{Text}\n");
         }
 
         public override string ToString()
         {
-            string res = $"{ShortText(Author.ToString())}\n{ShortText(Text)}\n";
+            string res = $"{ShortText(AuthorName.ToString())}\n{ShortText(Text)}\n";
             return res;
         }
 

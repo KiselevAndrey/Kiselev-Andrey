@@ -72,6 +72,24 @@ namespace Kiselev_Andrey
             return (byte)(result);
         }
 
+        public static byte Choiсe<T>(string start_text, SortedDictionary<byte, T> texts, SortedDictionary<byte, T> hiddenTexts, bool condition)
+        {
+            Console.WriteLine($"\n\t{start_text}\n");
+
+            if (condition)
+                foreach (var text in hiddenTexts)
+                    texts[text.Key] = text.Value;
+
+            foreach (var text in texts)
+                Console.WriteLine($"{text.Key}. {text.Value.ToString()}");
+
+            Console.WriteLine("\n0. Exit");
+            byte result = ConsoleRead.Byte("\nYour choise: ");
+
+            Console.Clear();
+            return (byte)(result);
+        }
+
         public static void EnterClearConsole()
         {
             Console.WriteLine("\n\nPress Enter.");

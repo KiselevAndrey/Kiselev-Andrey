@@ -26,6 +26,11 @@ namespace Kiselev_Andrey
             return dict.FirstOrDefault(x => Equals(x.Value, value)).Key;
         }
 
+        public static K KeyByValue<K, V>(SortedDictionary<K, V> dict, V value)
+        {
+            return dict.FirstOrDefault(x => Equals(x.Value, value)).Key;
+        }
+
         public static byte ReadConsoleByte<T>(string text, Dictionary<byte, T> dict)
         {
             while (true)
