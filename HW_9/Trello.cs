@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 using Kiselev_Andrey;
 
 namespace HW_9
@@ -12,6 +13,7 @@ namespace HW_9
         public string Name { get => "Trello"; }
         public List<Board> Boards { get; private set; }
         string pathJSON;
+        string pathLog;
 
         public Trello()
         {
@@ -26,21 +28,24 @@ namespace HW_9
         public void AddBoardConsole()
         {
             Board temp = new Board(ConsoleRead.String("Input name new board: "));
-            temp.BoardChanged += SaveTrello;
+            temp.BoardChanged += SaveTrelloAsync;
             Boards.Add(temp);
-            SaveTrello();
+            SaveTrelloAsync($"Added Board \"{temp.Name}\"");
         }
 
         public void DelBoardConsole()
         {
-            Boards.RemoveAt(StartMenu.Choiсe("Del Board", Boards));
-            SaveTrello();
+            int choice = StartMenu.Choiсe("Del Board", Boards);
+            SaveTrelloAsync($"Board \"{Boards[choice].Name}\" is removed");
+            Boards.RemoveAt(choice);
         }
 
         public void TravelToBoardConsole()
         {
             Console.Clear();
-            Boards[StartMenu.Choiсe("Travel", Boards)].ManagerConsole();
+            int choice = StartMenu.Choiсe("Travel", Boards);
+            SaveTrelloAsync($"Travel to board \"{Boards[choice].Name}\"");
+            Boards[choice].ManagerConsole();
         }
 
         void ChangeSelf(Trello trello)
@@ -48,43 +53,59 @@ namespace HW_9
             Boards = trello.Boards;
         }
 
-        public void SaveTrello()
+        public async void SaveTrelloAsync(string text)
         {
             Trello temp = new Trello();
             temp.ChangeSelf(this);
-            string jsonString = JsonConvert.SerializeObject(temp, Formatting.Indented);
-            File.WriteAllText(pathJSON, jsonString);
+            string jsonString = await Task.Run(() => JsonConvert.SerializeObject(temp, Formatting.Indented));
+            await Task.Run(() => File.WriteAllText(pathJSON, jsonString));
+            await Task.Run(() => File.AppendAllText(pathLog, $"{DateTime.Now} - {text}\n"));
         }
 
-        void LoadTrelloConsole()
+        string GetPathOrCreate(string folder)
         {
             DirectoryInfo di = new DirectoryInfo(Environment.CurrentDirectory.ToString());
             di = di.Parent;
             di = di.Parent;
             di = di.Parent;
-            string path = di.ToString() + "\\Saves";
-                       
+            string path = di.ToString() + $"\\{folder}";
+
             // если нет папки saves
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
+            return path;
+        }
+
+        string ChoiceOrCreateFilePath(string folder, string fileType, string purposeFile)
+        {
+            string path = GetPathOrCreate($"{folder}");
             var dir = new DirectoryInfo(path);
-            
+
             List<FileInfo> files = new List<FileInfo>();
-            foreach (var file in dir.GetFiles("*.json"))
+            foreach (var file in dir.GetFiles($"*.{fileType}"))
             {
                 files.Add(file);
             }
 
-            sbyte choice = StartMenu.Choiсe("Name of saved file", files, "saved file");
+            sbyte choice = StartMenu.Choiсe($"Name of {purposeFile} file", files, $"{purposeFile} file");
 
+            string result;
             if (choice == -1)
             {
-                pathJSON = path + "\\" + ConsoleRead.String("Input name of saved file: ") + ".json";
-                using (File.Create(pathJSON)) { }
+                result = path + "\\" + ConsoleRead.String($"Input name of {purposeFile} file: ") + $".{fileType}";
+                using (File.Create(result)) { }
             }
             else
-                pathJSON = files[choice].ToString();
+                result = files[choice].ToString();
+
+            return result;
+        }
+
+        void LoadTrelloConsole()
+        {
+            pathJSON = ChoiceOrCreateFilePath("Saves", "json", "saved");
+            pathLog = ChoiceOrCreateFilePath("Saves", "txt", "log");
 
             string jsonString = File.ReadAllText(pathJSON);
 
@@ -97,12 +118,13 @@ namespace HW_9
                 ChangeSelf(JsonConvert.DeserializeObject<Trello>(jsonString));
                 foreach (var board in Boards)
                 {
-                    board.BoardChanged += SaveTrello;
+                    board.BoardChanged += SaveTrelloAsync;
                 }
             }
+            SaveTrelloAsync($"Trello is load from json \"{pathJSON}\"");
         }
 
-        public void ManagerConsole()
+        public async void ManagerConsole()
         {
             SortedDictionary<byte, string> nameChoice = new SortedDictionary<byte, string>
             {
@@ -116,11 +138,16 @@ namespace HW_9
                 [4] = "Travel to Board",
             };
 
-            while (true)
+            bool flag = true;
+            while (flag)
             {
                 byte choice = StartMenu.Choiсe(Name, nameChoice, nameHiddenChoice, Boards.Count != 0);
 
-                if (choice == 0) break;
+                if (choice == 0)
+                {
+                    SaveTrelloAsync("Exit program");
+                    await Task.Run(() => flag = false);
+                }
 
                 else if (choice == Dict.KeyByValue(nameChoice, "Load Trello")) LoadTrelloConsole();
                 else if (choice == Dict.KeyByValue(nameChoice, "Add Board")) AddBoardConsole();
@@ -146,6 +173,7 @@ namespace HW_9
                 Console.WriteLine(board);
             }
 
+            SaveTrelloAsync("Printad all Board name");
             StartMenu.Enter();
         }
     }

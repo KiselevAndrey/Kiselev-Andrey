@@ -1,0 +1,18 @@
+10.05.2020 0:24:10 - Trello is load from json
+10.05.2020 0:25:54 - Added Board home 14
+10.05.2020 0:26:36 - Added status kakto tak
+10.05.2020 0:26:47 - Avramenko created card
+10.05.2020 0:34:16 - Trello is load from json
+10.05.2020 0:35:09 - Board name changed with hw 13 on HW13
+10.05.2020 0:35:36 - Returned to Trello
+10.05.2020 0:46:32 - Trello is load from json "D:\it-academy\c#\Kiselev Andrey\HW_9\Saves\trello.json"
+10.05.2020 0:46:36 - Printad all Board name
+10.05.2020 0:46:56 - Travel to board "HW13"
+10.05.2020 0:47:35 - Printed all Statuses from Board "HW13"
+10.05.2020 0:47:58 - Card (Author "Avramenko") remove from status "kakto tak"
+10.05.2020 0:48:10 - Status "kakto tak" is removed
+10.05.2020 0:48:28 - Added status "done"
+10.05.2020 0:48:54 - Added author "Depish"
+10.05.2020 0:49:13 - Depish created card
+10.05.2020 0:49:33 - Returned to Trello
+10.05.2020 0:49:37 - Exit program

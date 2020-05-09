@@ -11,9 +11,12 @@
         },
         {
           "Name": "Avramenko"
+        },
+        {
+          "Name": "Depish"
         }
       ],
-      "Name": "hw 13",
+      "Name": "HW13",
       "Statuses": [
         {
           "Name": "to do",
@@ -36,8 +39,22 @@
               "Text": "work, work, work"
             }
           ]
+        },
+        {
+          "Name": "done",
+          "Cards": [
+            {
+              "AuthorName": "Depish",
+              "Text": "I love rock & roll"
+            }
+          ]
         }
       ]
+    },
+    {
+      "authors": [],
+      "Name": "home 14",
+      "Statuses": []
     }
   ]
 }

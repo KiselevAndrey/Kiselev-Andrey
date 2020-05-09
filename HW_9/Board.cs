@@ -13,12 +13,12 @@ namespace HW_9
         public List<Status> Statuses { get; private set; }
         public List<Author> authors;
 
-        public delegate void CreateCard();
-        public delegate void ChangeCardStatus(string changedStatus);
-        public delegate void ChangeBoard();
+        //public delegate void CreateCard();
+        //public delegate void ChangeCardStatus(string changedStatus);
+        public delegate void ChangeBoard(string textMessage);
 
-        public event CreateCard CardCreated;
-        public event ChangeCardStatus CardStatusChanged;
+        //public event CreateCard CardCreated;
+        //public event ChangeCardStatus CardStatusChanged;
         public event ChangeBoard BoardChanged;
 
         public Board(string name)
@@ -31,12 +31,13 @@ namespace HW_9
         #region Add
         public void AddStatus()
         {
-            Statuses.Add(new Status(ConsoleRead.String("Input name new status: ")));
+            AddStatus(new Status(ConsoleRead.String("Input name new status: ")));
         }
 
         public void AddStatus(Status status)
         {
             Statuses.Add(status);
+            BoardChanged($"Added status \"{status.Name}\"");
         }
 
         void AddStatus(ref int posNewStatus)
@@ -51,25 +52,25 @@ namespace HW_9
             posNewStatus = Statuses.Count - 1;
         }
 
-        void AddAuthor()
+        void AddAuthor(string authorName)
         {
-            authors.Add(new Author(ConsoleRead.String("Input name new author: ")));
+            authors.Add(new Author(authorName));
+            BoardChanged($"Added author \"{authorName}\"");
+            //int posNewAuthor = authors.Count - 1;
+            //CardCreated += authors[posNewAuthor].NotificationCreateCard;
+            //CardStatusChanged += authors[posNewAuthor].NotificationChangeCardStatus;
         }
 
         void AddAuthor(ref int posNewAuthor)
         {
-            AddAuthor();
+            AddAuthor(ConsoleRead.String("Input name new author: "));
             posNewAuthor = authors.Count - 1;
-            CardCreated += authors[posNewAuthor].NotificationCreateCard;
-            CardStatusChanged += authors[posNewAuthor].NotificationChangeCardStatus;
         }
 
         void AddAuthor(ref int posNewAuthor, string authorName)
         {
-            authors.Add(new Author(authorName));
+            AddAuthor(authorName);
             posNewAuthor = authors.Count - 1;
-            CardCreated += authors[posNewAuthor].NotificationCreateCard;
-            CardStatusChanged += authors[posNewAuthor].NotificationChangeCardStatus;
         }
 
         public void AddCard()
@@ -80,7 +81,7 @@ namespace HW_9
 
             Statuses[choiceStatus].AddCard(new Card(authors[choiceAuthor], ConsoleRead.String("Input card text: ")));
             //authors[choiceAuthor].AddCard(Statuses[choiceStatus].PipLastAddedCard());
-            OnCardCreated();
+            OnCardCreated($"{authors[choiceAuthor]} created card");
         }
 
         public void AddCard(string status, string author, string text)
@@ -102,7 +103,7 @@ namespace HW_9
 
                 if (choice == 0) break;
 
-                else if (choice == 1) AddStatus(Status.ReadConsole());
+                else if (choice == 1) AddStatus();
                 else if (Statuses.Count == 0)
                 {
                     StartMenu.EnterClearConsole("Status count is null");
@@ -125,13 +126,16 @@ namespace HW_9
                 return;
             }
             int choiceNewStatus = StartMenu.Choiсe("New card status", Statuses);
-            Statuses[choiceNewStatus].AddCard(Statuses[oldChoice].PopCard());
-            OnCardStatusChanged(Statuses[choiceNewStatus].ToString());
+            Card tempCard = Statuses[oldChoice].PopCard();
+            Statuses[choiceNewStatus].AddCard(tempCard);
+            OnCardStatusChanged($"Card (Author \"{tempCard.AuthorName}\") change status with \"{Statuses[oldChoice].Name}\" on \"{Statuses[choiceNewStatus].Name}\"");
         }
 
         public void DelStatusConsole()
         {
-            Statuses.RemoveAt(StartMenu.Choiсe("Del Status", Statuses));
+            int choice = StartMenu.Choiсe("Del Status", Statuses);
+            BoardChanged($"Status \"{Statuses[choice].Name}\" is removed");
+            Statuses.RemoveAt(choice);
         }
 
         public void TravelToStatusConsole()
@@ -168,26 +172,28 @@ namespace HW_9
         #endregion
 
         #region Work with Events
-        void OnCardCreated()
+        void OnCardCreated(string textCreatedCard)
         {
             Console.Clear();
             //CardCreated();
-            BoardChanged();
+            BoardChanged(textCreatedCard);
             StartMenu.Enter();
         }
 
-        void OnCardStatusChanged(string changedStatus)
+        void OnCardStatusChanged(string textChangedStatus)
         {
             Console.Clear();
             //CardStatusChanged(changedStatus);
-            BoardChanged();
+            BoardChanged(textChangedStatus);
             StartMenu.Enter();
         }
         #endregion
 
         public void DelCard()
         {
-            Statuses[StartMenu.Choiсe("Choice Status from delete", Statuses)].DelCardConsole();
+            int choice = StartMenu.Choiсe("Choice Status from delete", Statuses);
+            Card temp = Statuses[choice].PopCard();
+            BoardChanged($"Card (Author \"{temp.AuthorName}\") remove from status \"{Statuses[choice].Name}\"");
         }
 
         public static Board ReadConsole()
@@ -211,10 +217,20 @@ namespace HW_9
             {
                 byte choice = StartMenu.Choiсe(Name, nameChoice);
 
-                if (choice == 0) break;
+                if (choice == 0)
+                {
+                    BoardChanged("Returned to Trello");
+                    break;
+                }
+
 
                 else if (choice == Dict.KeyByValue(nameChoice, "Work with Status")) WorkWithStatus();
-                else if (choice == Dict.KeyByValue(nameChoice, "Change name Board")) Name = ConsoleRead.String("Input new name Board: ");
+                else if (choice == Dict.KeyByValue(nameChoice, "Change name Board"))
+                {
+                    string oldName = Name;
+                    Name = ConsoleRead.String("Input new name Board: ");
+                    BoardChanged($"Board name changed with \"{oldName}\" on \"{Name}\"");
+                }
                 else if (choice == Dict.KeyByValue(nameChoice, "Add Card")) AddCard();
                 else if (Statuses.Count == 0)
                 {
@@ -242,6 +258,8 @@ namespace HW_9
             {
                 status.Print();
             }
+
+            BoardChanged($"Printed all Statuses from Board \"{Name}\"");
 
             StartMenu.Enter();
         }
