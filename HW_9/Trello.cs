@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 using Kiselev_Andrey;
 
 namespace HW_9
 {
+    [Serializable]
     class Trello
     {
         public string Name { get => "Trello"; }
-        public List<Board> Boards { get; }
+        public List<Board> Boards { get; private set; }
+        string pathJSON;
+        string pathLog;
 
         public Trello()
         {
@@ -20,36 +25,142 @@ namespace HW_9
             Boards.Add(board);
         }
 
+        public void AddBoardConsole()
+        {
+            Board temp = new Board(ConsoleRead.String("Input name new board: "));
+            temp.BoardChanged += SaveTrelloAsync;
+            Boards.Add(temp);
+            SaveTrelloAsync($"Added Board \"{temp.Name}\"");
+        }
+
         public void DelBoardConsole()
         {
-            Boards.RemoveAt(StartMenu.Choiсe("Del Board", Boards));
+            int choice = StartMenu.Choiсe("Del Board", Boards);
+            SaveTrelloAsync($"Board \"{Boards[choice].Name}\" is removed");
+            Boards.RemoveAt(choice);
         }
 
         public void TravelToBoardConsole()
         {
             Console.Clear();
-            Boards[StartMenu.Choiсe("Travel", Boards)].ManagerConsole();
+            int choice = StartMenu.Choiсe("Travel", Boards);
+            SaveTrelloAsync($"Travel to board \"{Boards[choice].Name}\"");
+            Boards[choice].ManagerConsole();
         }
 
-        public void ManagerConsole()
+        void ChangeSelf(Trello trello)
         {
-            while (true)
-            {
-                byte choice = StartMenu.Choiсe(Name, "Add Board", "Print all Board", "Del Board", "Travel to Board");
+            Boards = trello.Boards;
+        }
 
-                if (choice == 0) break;
-                
-                else if (choice == 1) AddBoard(Board.ReadConsole());
+        public async void SaveTrelloAsync(string text)
+        {
+            Trello temp = new Trello();
+            temp.ChangeSelf(this);
+            string jsonString = await Task.Run(() => JsonConvert.SerializeObject(temp, Formatting.Indented));
+            await Task.Run(() => File.WriteAllText(pathJSON, jsonString));
+            await Task.Run(() => File.AppendAllText(pathLog, $"{DateTime.Now} - {text}\n"));
+        }
+
+        string GetPathOrCreate(string folder)
+        {
+            DirectoryInfo di = new DirectoryInfo(Environment.CurrentDirectory.ToString());
+            di = di.Parent;
+            di = di.Parent;
+            di = di.Parent;
+            string path = di.ToString() + $"\\{folder}";
+
+            // если нет папки saves
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            return path;
+        }
+
+        string ChoiceOrCreateFilePath(string folder, string fileType, string purposeFile)
+        {
+            string path = GetPathOrCreate($"{folder}");
+            var dir = new DirectoryInfo(path);
+
+            List<FileInfo> files = new List<FileInfo>();
+            foreach (var file in dir.GetFiles($"*.{fileType}"))
+            {
+                files.Add(file);
+            }
+
+            sbyte choice = StartMenu.Choiсe($"Name of {purposeFile} file", files, $"{purposeFile} file");
+
+            string result;
+            if (choice == -1)
+            {
+                result = path + "\\" + ConsoleRead.String($"Input name of {purposeFile} file: ") + $".{fileType}";
+                using (File.Create(result)) { }
+            }
+            else
+                result = files[choice].ToString();
+
+            return result;
+        }
+
+        void LoadTrelloConsole()
+        {
+            pathJSON = ChoiceOrCreateFilePath("Saves", "json", "saved");
+            pathLog = ChoiceOrCreateFilePath("Saves", "txt", "log");
+
+            string jsonString = File.ReadAllText(pathJSON);
+
+            if (string.IsNullOrWhiteSpace(jsonString))
+            {
+                AddBoardConsole();
+            }
+            else
+            {
+                ChangeSelf(JsonConvert.DeserializeObject<Trello>(jsonString));
+                foreach (var board in Boards)
+                {
+                    board.BoardChanged += SaveTrelloAsync;
+                }
+            }
+            SaveTrelloAsync($"Trello is load from json \"{pathJSON}\"");
+        }
+
+        public async void ManagerConsole()
+        {
+            SortedDictionary<byte, string> nameChoice = new SortedDictionary<byte, string>
+            {
+                [10] = "Load Trello"
+            };
+            SortedDictionary<byte, string> nameHiddenChoice = new SortedDictionary<byte, string>
+            {
+                [1] = "Add Board",
+                [3] = "Print all Board",
+                [2] = "Del Board",
+                [4] = "Travel to Board",
+            };
+
+            bool flag = true;
+            while (flag)
+            {
+                byte choice = StartMenu.Choiсe(Name, nameChoice, nameHiddenChoice, Boards.Count != 0);
+
+                if (choice == 0)
+                {
+                    SaveTrelloAsync("Exit program");
+                    await Task.Run(() => flag = false);
+                }
+
+                else if (choice == Dict.KeyByValue(nameChoice, "Load Trello")) LoadTrelloConsole();
+                else if (choice == Dict.KeyByValue(nameChoice, "Add Board")) AddBoardConsole();
                 else if (Boards.Count == 0)
                 {
                     StartMenu.EnterClearConsole("Board count is null");
                     continue;
                 }
-                else if (choice == 2) Print();
-                else if (choice == 3) DelBoardConsole();
-                else if (choice == 4) TravelToBoardConsole();
+                else if (choice == Dict.KeyByValue(nameChoice, "Print all Board")) Print();
+                else if (choice == Dict.KeyByValue(nameChoice, "Del Board")) DelBoardConsole();
+                else if (choice == Dict.KeyByValue(nameChoice, "Travel to Board")) TravelToBoardConsole();
 
-                StartMenu.EnterClearConsole();
+                Console.Clear();
             }
         }
 
@@ -61,6 +172,9 @@ namespace HW_9
             {
                 Console.WriteLine(board);
             }
+
+            SaveTrelloAsync("Printad all Board name");
+            StartMenu.Enter();
         }
     }
 }

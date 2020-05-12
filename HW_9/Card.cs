@@ -1,35 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Kiselev_Andrey;
+using Newtonsoft.Json;
 
 namespace HW_9
 {
+    [Serializable]
     class Card
     {
-        public string NameAuthor { get; private set; }
+        public string AuthorName { get; private set; }
         public string Text { get; private set; }
 
-        private int maxPrintLength = 15;
-
-        /////////////Dont realisation////////////////
-        public DateTime DatePublish { get; private set; }
-        public DateTime DueDate { get; private set; }
-        /////////////////////////////
-
-        public Card(string author)
+        private readonly int maxPrintLength = 15;
+        
+        public Card(Author author)
         {
             SetNameAuthor(author);
         }
 
-        public Card(string author, string text) : this(author)
+        public Card(Author author, string text) : this(author)
         {
             SetText(text);
         }
 
-        public void SetNameAuthor(string author)
+        [JsonConstructor]
+        public Card(string authorName, string text)
         {
-            NameAuthor = author;
+            AuthorName = authorName;
+            Text = text;
+        }
+
+        public void SetNameAuthor(Author author)
+        {
+            AuthorName = author.Name;
         }
 
         public void SetText(string text)
@@ -39,12 +40,12 @@ namespace HW_9
 
         public void Print()
         {
-            Console.WriteLine($"\t{NameAuthor}\n{Text}\n");
+            Console.WriteLine($"\t{AuthorName}\n{Text}\n");
         }
 
         public override string ToString()
         {
-            string res = $"{ShortText(NameAuthor)}\n{ShortText(Text)}\n";
+            string res = $"{ShortText(AuthorName.ToString())}\n{ShortText(Text)}\n";
             return res;
         }
 
@@ -53,26 +54,6 @@ namespace HW_9
             string res = text.Substring(0, Math.Min(text.Length, maxPrintLength));
             if (text.Length > maxPrintLength) res += "\b\b\b...";
             return res;
-        }
-
-        static public Card ReadConsole()
-        {
-            return new Card(ConsoleRead.String("Input name author: "), ConsoleRead.String("Input card text: "));
-        }
-
-        public void ManagerConsole()
-        {
-            while (true)
-            {
-                byte choice = StartMenu.Choiсe(NameAuthor, "Change author", "Change text");
-
-                if (choice == 0) break;
-
-                else if (choice == 1) NameAuthor = ConsoleRead.String("Input author name: ");
-                else if (choice == 2) Text = ConsoleRead.String("Input new text: ");
-
-                StartMenu.EnterClearConsole();
-            }
         }
     }
 }
