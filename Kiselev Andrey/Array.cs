@@ -26,5 +26,25 @@ namespace Kiselev_Andrey
 
             return arr[index];
         }
+
+        public static void Print<T>(T[] arr, string text)
+        {
+            Console.WriteLine(text);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write($"{arr[i]} ");
+            }
+            Console.WriteLine();
+        }
+
+        public static void Print(int[] arr, string text)
+        {
+            Console.WriteLine($"\n{text}\n");
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Matrix.IntPrintBeautiful(arr[i]);
+            }
+            Console.WriteLine();
+        }
     }
 }

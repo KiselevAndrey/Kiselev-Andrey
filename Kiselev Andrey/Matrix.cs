@@ -34,9 +34,10 @@ namespace Kiselev_Andrey
             Console.WriteLine();
         }
 
-        static void IntPrintBeautiful(int num, byte count_symbol = 5)
+        static public void IntPrintBeautiful(int num, byte count_symbol = 5)
         {
             string text = num < 0 ? $"{num}" : $" {num}";
+            if (text.Length > count_symbol + 2) count_symbol = (byte)(text.Length + 2);
             for (int i = count_symbol; i > text.Length;)
             {
                 text = text.Insert(text.Length, " ");
